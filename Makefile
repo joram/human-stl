@@ -1,11 +1,15 @@
 build:
-	docker build ./openpose -t joram87/openpose:latest
-	docker push joram87/openpose:latest
-
-run_pifuhd:
+	docker build ./openpose -t joram87/openpose-cpu:latest
+#	docker push joram87/openpose-cpu:latest
 	docker build ./pifuhd -t joram87/pifuhd:latest
-#	nvidia-smi --gpu-reset -i 0
-	docker run -it --gpus all --rm -v ./input:/input -v ./output:/output joram87/pifuhd:latest
+
+run: build
+	docker run -it --rm -v ./openpose/models:/openpose/models -v ./input:/input -v ./output:/output joram87/openpose-cpu:latest
+	cat ./input/human_keypoints.json
+	echo ""
+
+#	docker push joram87/pifuhd:latest
+
 
 install-nvidia-container-runtime:
 	curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
