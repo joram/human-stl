@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  openpose:
+    build:
+      context: ./openpose
+      labels:
+        - joram87/openpose-cpu:latest
+    volumes:
+      - ./input:/data/input
+      - ./output:/data/output
+      - ./openpose/models:/openpose/models
+      - ./openpose/entrypoint.sh:/entrypoint.sh
+
+  pifuhd:
+    build:
+      context: ./pifuhd
+      labels:
+        - joram87/pifuhd:latest
+    volumes:
+      - ./input:/data/input
+      - ./output:/data/output
+      - ./pifuhd/models:/pifuhd/models
+      - ./pifuhd/entrypoint.sh:/entrypoint.sh
