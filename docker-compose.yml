@@ -21,3 +21,13 @@ services:
       - ./output:/data/output
       - ./pifuhd/models:/pifuhd/models
       - ./pifuhd/entrypoint.sh:/entrypoint.sh
+
+  openmvs:
+    build:
+      context: ./openMVS
+      labels:
+        - joram87/openMVS:latest
+    volumes:
+      - ./input/caitlin_head:/data/input
+      - ./openMVS/work:/data/work
+      - ./openMVS/entrypoint.sh:/entrypoint.sh
